@@ -1,25 +1,102 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react"
+import axios from "axios";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { AllRoutes } from "./routes/AllRoutes";
+import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
+import { AddTask } from './components/AddTask';
+
+class App extends Component {
+	state = {
+		viewCompleted: false,
+		activeItem: {
+			title: "",
+			description: "",
+			completed: false
+		},
+		todoList: []
+	};
+
+	async componentDidMount() {
+		try {
+			const res = await fetch('http://localhost:8000/api/todos/');
+			const todoList = await res.json();
+			this.setState({
+				todoList
+			});
+		} catch (e) {
+			console.log(e);
+		}
+	}
+
+	toggle = () => {
+		this.setState({ modal: !this.state.modal });
+	};
+
+	//Responsible for saving the task
+	handleSubmit = item => {
+		this.toggle();
+		if (item.id) {
+			axios
+				.put(`http://localhost:8000/api/todos/${item.id}/`, item)
+			return;
+		}
+		axios
+			.post("http://localhost:8000/api/todos/", item)
+	};
+
+	createItem = () => {
+		const item = { title: "", description: "", completed: false };
+		this.setState({ activeItem: item, modal: !this.state.modal });
+	};
+
+	displayCompleted = status => {
+		if (status) {
+			return this.setState({ viewCompleted: true });
+		}
+		return this.setState({ viewCompleted: false });
+	};
+
+	renderItems = () => {
+		const { viewCompleted } = this.state;
+		const newItems = this.state.todoList.filter(
+			item => item.completed === viewCompleted
+		);
+		return newItems.map(item => (
+			<li
+				key={item.id}
+				className=""
+			>
+				<span
+					title={item.description}
+				>
+					{item.title}
+				</span>
+			</li>
+		));
+	};
+
+	toggleAddTaskModal = () => {
+		this.setState((prevState) => ({
+			isAddTaskOpen: !prevState.isAddTaskOpen,
+		}));
+	};
+
+	render() {
+
+		return (
+			<div className="App">
+				<Header toggleAddTaskModal={this.toggleAddTaskModal} />
+				<AllRoutes />
+				<Footer />
+				{this.state.isAddTaskOpen && (
+					<div className="popup-overlay">
+						<AddTask onClose={this.toggleAddTaskModal} />
+					</div>
+				)}
+			</div>
+		)
+	}
 }
 
 export default App;
