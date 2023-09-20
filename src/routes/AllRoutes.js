@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { ShowTask, Schedule, TaskDetail } from '../pages/Index';
+import { ShowTask, Schedule, TaskDetail, AddTask } from '../pages/Index';
 
 export const AllRoutes = () => {
     return (
@@ -7,6 +7,7 @@ export const AllRoutes = () => {
             <Routes>
                 <Route path='/' element={<ShowTask />} />
                 <Route path='schedule' element={<Schedule />} />
+                <Route path='add_task' element={<AddTask />} />
                 <Route path='task/:id' element={<TaskDetail />} />
 
             </Routes>

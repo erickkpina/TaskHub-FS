@@ -4,7 +4,6 @@ import axios from "axios";
 import { AllRoutes } from "./routes/AllRoutes";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
-import { AddTask } from './components/AddTask';
 
 class App extends Component {
 	state = {
@@ -76,24 +75,13 @@ class App extends Component {
 		));
 	};
 
-	toggleAddTaskModal = () => {
-		this.setState((prevState) => ({
-			isAddTaskOpen: !prevState.isAddTaskOpen,
-		}));
-	};
-
 	render() {
 
 		return (
 			<div className="App">
-				<Header toggleAddTaskModal={this.toggleAddTaskModal} />
+				<Header />
 				<AllRoutes />
 				<Footer />
-				{this.state.isAddTaskOpen && (
-					<div className="popup-overlay">
-						<AddTask onClose={this.toggleAddTaskModal} />
-					</div>
-				)}
 			</div>
 		)
 	}
