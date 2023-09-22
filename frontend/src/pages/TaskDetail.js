@@ -22,19 +22,21 @@ export const TaskDetail = () => {
     }, [id]); // O segundo argumento [] garante que isso só seja executado uma vez após a montagem
 
     return (
-        <main className="flex items-center justify-center h-screen relative">
-            <div className="max-w-sm p-6 w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 absolute top-20">
-                <h1 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{task.title}</h1>
-                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{task.description}</p>
-                <div className="flex flex-row mt-4 space-x-3 md:mt-6">
-                    <p className="pt-1 text-md font-bold text-gray-500 dark:text-gray-400">Start date:</p>
-                    <p className="pt-1 text-md text-gray-500 dark:text-gray-400">{task.start_date}</p>
+        <main>
+            <section className="flex justify-center py-5 text-center">
+                <div className="max-w-2xl text-black text-lg dark:text-white mx-auto my-auto">
+                    <h1 className="text-4xl my-3 text-center">{task.title}</h1>
+                    <p className="my-4 text-md text-gray-800 dark:text-gray-400">{task.description}</p>
+                    <div className="flex flex-row mt-4 space-x-3 md:mt-6">
+                        <p className="pt-1 text-sm font-bold text-gray-500 dark:text-gray-400">Start date:</p>
+                        <p className="pt-1 text-sm text-gray-500 dark:text-gray-400">{task.start_date}</p>
+                    </div>
+                    <div className="flex flex-row space-x-3">
+                        <p className="text-sm font-bold text-gray-500 dark:text-gray-400">Deadline:</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">{task.end_date}</p>
+                    </div>
                 </div>
-                <div className="flex flex-row space-x-3 ">
-                    <p className=" text-md font-bold text-gray-500 dark:text-gray-400">Deadline:</p>
-                    <p className=" text-md text-gray-500 dark:text-gray-400">{task.end_date}</p>
-                </div>
-            </div>
+            </section>
         </main>
     )
 }
