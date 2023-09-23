@@ -7,9 +7,6 @@ export const AllRoutes = () => {
             <Routes>
                 <Route path='/' element={<ShowTask />} />
                 <Route path='schedule' element={<Schedule />} />
-                <Route path='add_task' element={<AddTask />} />
-                <Route path='task/:id' element={<TaskDetail />} />
-
             </Routes>
         </div>
     )

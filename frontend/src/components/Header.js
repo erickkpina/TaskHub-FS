@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import Logo from "../assets/logo.png";
 
 import { Link, NavLink } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
 
 export const Header = () => {
     const [hidden, setHidden] = useState(true);
     const [darkMode, setDarkMode] = useState(JSON.parse(localStorage.getItem("darkMode")) || false);
-    const navigate = useNavigate();
 
 
     const activeClass = "text-base block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white";

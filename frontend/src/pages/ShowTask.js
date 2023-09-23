@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { Popover } from '../components/Popover';
+import { AddTask } from '../components/AddTask';
 
 export const ShowTask = () => {
     const [todoList, setTodoList] = useState([]);
@@ -45,10 +47,6 @@ export const ShowTask = () => {
         }
     };
 
-    const handleAddTaskButtonClick = () => {
-        navigate('/add_task');
-    };
-
     return (
         <main>
             <section className="p-5 rounded-lg m-5 mx-auto shadow-xl border dark:border-gray-700">
@@ -60,8 +58,7 @@ export const ShowTask = () => {
                         </span>
                     </div>
 
-                    <button type="button" onClick={handleAddTaskButtonClick} className="text-blue-700 hover:text-white bg-white border border-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">+ Add Task</button>
-
+                    <AddTask todoList={todoList} setTodoList={setTodoList} />
 
                     <div className='flex flex-col'>
                         <div className='py-1'>
@@ -99,11 +96,7 @@ export const ShowTask = () => {
                                             <i onClick={() => handleDelete(task.id)} className='bi bi-pencil-square pr-1 pl-8 text-blue-800 dark:text-white' style={{ cursor: 'pointer' }} />
                                             <i onClick={() => handleDelete(task.id)} className='bi bi-trash text-red-700 dark:text-white' style={{ cursor: 'pointer' }} />
                                         </div>
-                                        <Link to={`/task/${task.id}`} >
-                                            <div className="text-xs text-gray-700 dark:text-gray-400">
-                                                <p className='hover:text-blue-700 dark:hover:text-white'>Read more...</p>
-                                            </div>
-                                        </Link>
+                                        <Popover task={task} setTodoList={setTodoList} />
                                     </div>
                                 </li>
                             ))
@@ -126,11 +119,7 @@ export const ShowTask = () => {
                                         <i onClick={() => handleDelete(task.id)} className='bi bi-pencil-square pr-1 pl-8 text-blue-800 dark:text-white' style={{ cursor: 'pointer' }} />
                                         <i onClick={() => handleDelete(task.id)} className='bi bi-trash text-red-700 dark:text-white' style={{ cursor: 'pointer' }} />
                                     </div>
-                                    <Link to={`/task/${task.id}`} >
-                                        <div className="text-xs text-gray-700 dark:text-gray-400">
-                                            <p className='hover:text-blue-700 dark:hover:text-white'>Read more...</p>
-                                        </div>
-                                    </Link>
+                                    <Popover task={task} setTodoList={setTodoList} />
                                 </div>
                             </li>
                         ))}

@@ -7,18 +7,6 @@ import { Footer } from "./components/Footer";
 
 class App extends Component {
 
-	//Responsible for saving the task
-	handleSubmit = item => {
-		this.toggle();
-		if (item.id) {
-			axios
-				.put(`http://localhost:8000/todos/${item.id}/`, item)
-			return;
-		}
-		axios
-			.post("http://localhost:8000/todos/", item)
-	};
-
 	render() {
 
 		return (
