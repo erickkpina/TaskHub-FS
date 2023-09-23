@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from "axios";
 import { set } from 'date-fns';
 
-export const Popover = ({ setTodoList, task }) => {
+export const Popover = ({ task, fetchTasks }) => {
 	const [hidden, setHidden] = useState(true);
 	const [popoverVisible, setPopoverVisible] = useState(false);
 	const [tempTask, setTempTask] = useState({
@@ -20,19 +20,6 @@ export const Popover = ({ setTodoList, task }) => {
 	const hidePopover = () => {
 		setPopoverVisible(false);
 	};
-
-	const fetchTasks = async () => {
-		try {
-			const response = await axios.get('http://localhost:8000/todos/');
-			setTodoList(response.data);
-		} catch (error) {
-			console.error(error);
-		}
-	};
-
-	useEffect(() => {
-		fetchTasks();
-	}, []);
 
 	const handleEdit = async (id) => {
 		if (task.id === id) {
