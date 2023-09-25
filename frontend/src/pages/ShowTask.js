@@ -16,11 +16,32 @@ export const ShowTask = () => {
         try {
             const response = await axios.get('http://localhost:8000/todos/');
             const data = response.data;
+
+            // Ordenar a lista com base na string de data (formato dd/MM/yyyy)
+            data.sort((a, b) => {
+                const dateA = a.start_date;
+                const dateB = b.start_date;
+
+                // Converter as strings de data em um formato que possa ser ordenado
+                const datePartsA = dateA.split('/').reverse().join('');
+                const datePartsB = dateB.split('/').reverse().join('');
+
+                // Compare as strings de data convertidas
+                if (datePartsA < datePartsB) {
+                    return -1;
+                }
+                if (datePartsA > datePartsB) {
+                    return 1;
+                }
+                return 0;
+            });
+
             setTodoList(data);
         } catch (error) {
             console.error(error);
         }
     };
+
     useEffect(() => {
 
         fetchData();
@@ -49,7 +70,7 @@ export const ShowTask = () => {
                         </span>
                     </div>
 
-                    <AddTask setTodoList={setTodoList} />
+                    <AddTask setTodoList={setTodoList} fetchTasks={fetchData} />
 
                     <div className='flex flex-col'>
                         <div className='py-1'>

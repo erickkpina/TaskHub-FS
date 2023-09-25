@@ -5,7 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import DatePicker from 'react-datepicker'
 
 
-export const AddTask = ({ setTodoList }) => {
+export const AddTask = ({ setTodoList, fetchTasks }) => {
     const [hidden, setHidden] = useState(true);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
@@ -22,15 +22,6 @@ export const AddTask = ({ setTodoList }) => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setTask({ ...task, [name]: value });
-    };
-
-    const fetchTasks = async () => {
-        try {
-            const response = await axios.get('http://localhost:8000/todos/');
-            setTodoList(response.data);
-        } catch (error) {
-            console.error(error);
-        }
     };
 
     const handleSubmit = async (e) => {
