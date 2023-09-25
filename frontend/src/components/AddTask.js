@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import axios from "axios";
 import 'react-datepicker/dist/react-datepicker.css'
 
 import DatePicker from 'react-datepicker'
-import { useNavigate } from 'react-router-dom';
 
 
 export const AddTask = ({ setTodoList }) => {
     const [hidden, setHidden] = useState(true);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
-    const navigate = useNavigate();
 
 
     const [task, setTask] = useState({
@@ -35,17 +33,11 @@ export const AddTask = ({ setTodoList }) => {
         }
     };
 
-    useEffect(() => {
-        fetchTasks();
-    }, []);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
             await axios.post('http://localhost:8000/todos/', task);
-
-            // Após o POST bem-sucedido, busque as tarefas atualizadas
             fetchTasks();
 
             setTask({
@@ -55,6 +47,8 @@ export const AddTask = ({ setTodoList }) => {
                 start_date: '',
                 end_date: '',
             });
+            setStartDate(null);
+            setEndDate(null);
             setHidden(!hidden);
         } catch (error) {
             console.error(error);
@@ -69,7 +63,7 @@ export const AddTask = ({ setTodoList }) => {
         <div >
             <button type="button" onClick={() => setHidden(!hidden)} className="text-blue-700 hover:text-white bg-white border border-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" >+ Add Task</button>
             {hidden ? null : (
-                <div className="fixed top-0 left-0 right-0 bottom-0 z-50 flex justify-center items-center bg-black bg-opacity-50">
+                <div className="fixed top-0 left-0 right-0 bottom-0 z-50 flex justify-center items-center bg-black bg-opacity-60">
                     <div id="authentication-modal" aria-hidden="true" className="relative w-full max-w-md max-h-full">
                         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
                             <button type="button" onClick={closeModal} className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">
@@ -83,11 +77,11 @@ export const AddTask = ({ setTodoList }) => {
                                 <form className="space-y-6" onSubmit={handleSubmit}>
                                     <div>
                                         <label htmlFor="taskTitle" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">What you need to do?</label>
-                                        <input type="text" name="title" id="title" maxLength={80} value={task.title} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Math homework" required />
+                                        <input type="text" name="title" id="title" maxLength={80} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Math homework" required />
                                     </div>
                                     <div>
                                         <label htmlFor="taskDescription" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Give the task a description</label>
-                                        <textarea name="description" id="description" value={task.description} onChange={handleChange} placeholder="Start on page 47 of the book" rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                                        <textarea name="description" id="description" onChange={handleChange} placeholder="Start on page 47 of the book" rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
                                     </div>
                                     <div className='flex flex-row justify-center'>
                                         <div className='pr-3'>

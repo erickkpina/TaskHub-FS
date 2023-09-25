@@ -1,17 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import axios from "axios";
-import { set } from 'date-fns';
 
 export const Popover = ({ task, fetchTasks }) => {
-	const [hidden, setHidden] = useState(true);
 	const [popoverVisible, setPopoverVisible] = useState(false);
-	const [tempTask, setTempTask] = useState({
-		title: '',
-		description: '',
-		completed: false,
-		start_date: '',
-		end_date: '',
-	});
 
 	const showPopover = () => {
 		setPopoverVisible(true);
@@ -21,30 +12,9 @@ export const Popover = ({ task, fetchTasks }) => {
 		setPopoverVisible(false);
 	};
 
-	const handleEdit = async (id) => {
-		if (task.id === id) {
-			try {
-				setTempTask({
-					title: 'edited',
-					description: 'testing',
-					completed: true,
-					start_date: '23/03/2023',
-					end_date: '30/03/2023',
-				});
-				const response = await axios.put(`http://localhost:8000/todos/${task.id}/`, tempTask);
-				console.log(response.data);
-
-				fetchTasks();
-			} catch (error) {
-				console.error(error);
-			}
-		}
-	};
-
 	const handleToggleComplete = async () => {
 		try {
 			const updatedTask = { ...task, completed: !task.completed };
-			setTempTask(updatedTask);
 
 			const response = await axios.put(`http://localhost:8000/todos/${task.id}/`, updatedTask);
 			console.log(response.data);
@@ -53,16 +23,6 @@ export const Popover = ({ task, fetchTasks }) => {
 		} catch (error) {
 			console.error(error);
 		}
-	};
-
-	const handleSubmit = item => {
-		this.toggle();
-		if (item.id) {
-
-			return;
-		}
-		axios
-			.post("http://localhost:8000/todos/", item)
 	};
 
 	const buttonClassName = task.completed

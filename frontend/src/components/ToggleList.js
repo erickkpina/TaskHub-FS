@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
-import axios from 'axios';
+import React from 'react'
 
 import { Popover } from './Popover';
 import { EditTask } from './EditTask';
+import { DeleteTask } from './DeleteTask';
 
 
 export const ToggleList = ({ task, handleDelete, fetchTasks }) => {
@@ -33,11 +33,7 @@ export const ToggleList = ({ task, handleDelete, fetchTasks }) => {
             <div className="flex flex-col justify-between">
                 <div className='flex flex-row'>
                     <EditTask task={task} fetchTasks={fetchTasks} />
-                    <i
-                        onClick={() => handleDelete(task.id)}
-                        className="bi bi-trash text-red-700 dark:text-white"
-                        style={{ cursor: 'pointer' }}
-                    />
+                    <DeleteTask task={task} handleDelete={handleDelete} />
                 </div>
                 <Popover task={task} fetchTasks={fetchTasks} />
             </div>

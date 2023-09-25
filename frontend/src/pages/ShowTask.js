@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import { useNavigate } from 'react-router-dom';
 import { AddTask } from '../components/AddTask';
 import { ToggleList } from '../components/ToggleList';
 
 export const ShowTask = () => {
     const [todoList, setTodoList] = useState([]);
     const [showTodoOnly, setShowTodoOnly] = useState(false);
-    const navigate = useNavigate();
 
     const toggleShowTodoOnly = () => {
         setShowTodoOnly(!showTodoOnly);

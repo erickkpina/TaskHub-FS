@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import axios from "axios";
 
 import { AllRoutes } from "./routes/AllRoutes";
 import { Header } from "./components/Header";

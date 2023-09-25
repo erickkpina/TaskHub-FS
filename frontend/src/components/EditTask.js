@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import axios from "axios";
 import 'react-datepicker/dist/react-datepicker.css'
 
 import DatePicker from 'react-datepicker'
-import { useNavigate } from 'react-router-dom';
 
 
 export const EditTask = ({ task, fetchTasks }) => {
     const [hidden, setHidden] = useState(true);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
-    const navigate = useNavigate();
+
+    const buttonClassName = task.completed
+        ? 'w-full px-5 py-2 mr-2 text-sm font-medium rounded-lg text-black hover:text-black hover:bg-yellow-400 border border-yellow-400 focus:ring-4 focus:outline-none focus:ring-yellow-400 dark:focus:ring-yellow-400 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-yellow-400'
+        : 'w-full px-5 py-2 mr-2 text-sm font-medium rounded-lg text-green-700 hover:text-white hover:bg-green-600 border border-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-green-600';
+
 
 
     const [taskTemp, setTaskTemp] = useState({
@@ -52,7 +55,7 @@ export const EditTask = ({ task, fetchTasks }) => {
                 style={{ cursor: 'pointer' }}
             />
             {hidden ? null : (
-                <div className="fixed top-0 left-0 right-0 bottom-0 z-50 flex justify-center items-center bg-black bg-opacity-50">
+                <div className="fixed top-0 left-0 right-0 bottom-0 z-50 flex justify-center items-center bg-black bg-opacity-60">
                     <div id="authentication-modal" aria-hidden="true" className="relative w-full max-w-md max-h-full">
                         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
                             <button type="button" onClick={closeModal} className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">
@@ -120,7 +123,9 @@ export const EditTask = ({ task, fetchTasks }) => {
                                                 required
                                             />
                                         </div>
+
                                     </div>
+
                                     <div className='flex justify-center'>
                                         <button type="submit" className="w-48 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update Task</button>
                                     </div>
