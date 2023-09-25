@@ -7,11 +7,11 @@ import { ToggleList } from '../components/ToggleList';
 
 export const ShowTask = () => {
     const [todoList, setTodoList] = useState([]);
-    const [showCompleted, setShowCompleted] = useState(false);
+    const [showTodoOnly, setShowTodoOnly] = useState(false);
     const navigate = useNavigate();
 
-    const toggleShowCompleted = () => {
-        setShowCompleted(!showCompleted);
+    const toggleShowTodoOnly = () => {
+        setShowTodoOnly(!showTodoOnly);
     };
 
     const fetchData = async () => {
@@ -51,7 +51,7 @@ export const ShowTask = () => {
                         </span>
                     </div>
 
-                    <AddTask todoList={todoList} setTodoList={setTodoList} />
+                    <AddTask setTodoList={setTodoList} />
 
                     <div className='flex flex-col'>
                         <div className='py-1'>
@@ -68,35 +68,35 @@ export const ShowTask = () => {
                 </div>
 
                 <ul className="m-8 flex flex-wrap justify-center gap-5">
-                    {showCompleted
+                    {showTodoOnly
                         ? todoList
-                            .filter((task) => task.completed)
+                            .filter((task) => !task.completed)
                             .map((task) => (
                                 <ToggleList task={task} handleDelete={handleDelete} fetchTasks={fetchData} />
                             ))
                         : todoList.map((task) => (
-                            <ToggleList key={task.id} task={task} handleDelete={handleDelete} fetchTasks={fetchData} />
+                            <ToggleList task={task} handleDelete={handleDelete} fetchTasks={fetchData} />
                         ))}
                 </ul>
 
                 <button
                     type="button"
-                    className={`${showCompleted
+                    className={`${showTodoOnly
                         ? 'hidden'
-                        : 'text-green-700 hover:text-white border border-green-600 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800'
+                        : 'font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 text-black hover:text-black hover:bg-yellow-400 border border-yellow-400 focus:ring-4 focus:outline-none focus:ring-yellow-400 dark:focus:ring-yellow-400 dark:bg-gray-800 dark:text-yellow-400 dark:border-yellow-400 dark:hover:text-black dark:hover:bg-yellow-400'
                         }`}
-                    onClick={toggleShowCompleted}
+                    onClick={toggleShowTodoOnly}
                 >
-                    Show completed
+                    Show to do tasks
                 </button>
 
                 <button
                     type="button"
-                    className={`${showCompleted
+                    className={`${showTodoOnly
                         ? 'text-purple-700 hover:text-white border border-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500 dark:focus:ring-purple-900'
                         : 'hidden'
                         }`}
-                    onClick={toggleShowCompleted}
+                    onClick={toggleShowTodoOnly}
                 >
                     Show All
                 </button>
