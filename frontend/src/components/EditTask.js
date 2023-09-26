@@ -92,11 +92,22 @@ export const EditTask = ({ task, fetchTasks }) => {
                                                 id="start_date"
                                                 selected={startDate}
                                                 onChange={(date) => {
-                                                    const formattedDate = date ? date.toLocaleDateString('pt-BR') : '';
-                                                    setStartDate(date); // Atualiza o estado startDate
+                                                    const formattedDate = date ? date.toLocaleString('pt-BR', {
+                                                        year: 'numeric',
+                                                        month: '2-digit',
+                                                        day: '2-digit',
+                                                        hour: '2-digit',
+                                                        minute: '2-digit',
+                                                    }) : '';
+                                                    setStartDate(date);
                                                     handleChange({ target: { name: "start_date", value: formattedDate } });
                                                 }}
-                                                dateFormat={"dd/MM/yyyy"}
+                                                dateFormat="dd/MM/yyyy HH:mm"
+                                                showTimeSelect
+                                                timeFormat="HH:mm"
+                                                timeIntervals={5}
+                                                timeCaption="Time"
+                                                autoComplete='off'
                                                 isClearable
                                                 value={taskTemp.start_date}
                                                 placeholderText="Select a start date"
@@ -111,11 +122,22 @@ export const EditTask = ({ task, fetchTasks }) => {
                                                 id="end_date"
                                                 selected={endDate}
                                                 onChange={(date) => {
-                                                    const formattedDate = date ? date.toLocaleDateString('pt-BR') : '';
+                                                    const formattedDate = date ? date.toLocaleString('pt-BR', {
+                                                        year: 'numeric',
+                                                        month: '2-digit',
+                                                        day: '2-digit',
+                                                        hour: '2-digit',
+                                                        minute: '2-digit',
+                                                    }) : '';
                                                     setEndDate(date);
                                                     handleChange({ target: { name: "end_date", value: formattedDate } });
                                                 }}
-                                                dateFormat={"dd/MM/yyyy"}
+                                                dateFormat="dd/MM/yyyy HH:mm"
+                                                showTimeSelect
+                                                timeFormat="HH:mm"
+                                                timeIntervals={5}
+                                                timeCaption="Time"
+                                                autoComplete='off'
                                                 isClearable
                                                 value={taskTemp.end_date}
                                                 placeholderText="Select an end date"
@@ -123,7 +145,6 @@ export const EditTask = ({ task, fetchTasks }) => {
                                                 required
                                             />
                                         </div>
-
                                     </div>
 
                                     <div className='flex justify-center'>

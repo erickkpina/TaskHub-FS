@@ -14,13 +14,22 @@ export const Popover = ({ task, fetchTasks }) => {
 
 	const handleToggleComplete = async () => {
 		try {
-			const updatedTask = { ...task, completed: !task.completed };
+			const updatedTask = {
+				title: task.title,
+				description: task.description,
+				completed: !task.completed,
+				start_date: task.start_date,
+				end_date: task.end_date,
+
+			};
+			console.log(updatedTask);
 
 			const response = await axios.put(`http://localhost:8000/todos/${task.id}/`, updatedTask);
 			console.log(response.data);
 
 			fetchTasks();
 		} catch (error) {
+			console.log(task);
 			console.error(error);
 		}
 	};

@@ -41,6 +41,8 @@ export const AddTask = ({ setTodoList, fetchTasks }) => {
             setStartDate(null);
             setEndDate(null);
             setHidden(!hidden);
+
+            console.log(task);
         } catch (error) {
             console.error(error);
         }
@@ -82,11 +84,22 @@ export const AddTask = ({ setTodoList, fetchTasks }) => {
                                                 id="start_date"
                                                 selected={startDate}
                                                 onChange={(date) => {
-                                                    const formattedDate = date ? date.toLocaleDateString('pt-BR') : '';
-                                                    setStartDate(date); // Atualiza o estado startDate
+                                                    const formattedDate = date ? date.toLocaleString('pt-BR', {
+                                                        year: 'numeric',
+                                                        month: '2-digit',
+                                                        day: '2-digit',
+                                                        hour: '2-digit',
+                                                        minute: '2-digit',
+                                                    }) : '';
+                                                    setStartDate(date);
                                                     handleChange({ target: { name: "start_date", value: formattedDate } });
                                                 }}
-                                                dateFormat={"dd/MM/yyyy"}
+                                                dateFormat="dd/MM/yyyy HH:mm"
+                                                showTimeSelect
+                                                timeFormat="HH:mm"
+                                                timeIntervals={5}
+                                                timeCaption="Time"
+                                                autoComplete='off'
                                                 isClearable
                                                 placeholderText="Select a start date"
                                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
@@ -100,11 +113,22 @@ export const AddTask = ({ setTodoList, fetchTasks }) => {
                                                 id="end_date"
                                                 selected={endDate}
                                                 onChange={(date) => {
-                                                    const formattedDate = date ? date.toLocaleDateString('pt-BR') : '';
+                                                    const formattedDate = date ? date.toLocaleString('pt-BR', {
+                                                        year: 'numeric',
+                                                        month: '2-digit',
+                                                        day: '2-digit',
+                                                        hour: '2-digit',
+                                                        minute: '2-digit',
+                                                    }) : '';
                                                     setEndDate(date);
                                                     handleChange({ target: { name: "end_date", value: formattedDate } });
                                                 }}
-                                                dateFormat={"dd/MM/yyyy"}
+                                                dateFormat="dd/MM/yyyy HH:mm"
+                                                showTimeSelect
+                                                timeFormat="HH:mm"
+                                                timeIntervals={5}
+                                                timeCaption="Time"
+                                                autoComplete='off'
                                                 isClearable
                                                 placeholderText="Select an end date"
                                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"

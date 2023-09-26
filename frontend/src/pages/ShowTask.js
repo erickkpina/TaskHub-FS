@@ -91,10 +91,10 @@ export const ShowTask = () => {
                         ? todoList
                             .filter((task) => !task.completed)
                             .map((task) => (
-                                <ToggleList task={task} handleDelete={handleDelete} fetchTasks={fetchData} />
+                                <ToggleList key={task.id} task={task} handleDelete={handleDelete} fetchTasks={fetchData} />
                             ))
                         : todoList.map((task) => (
-                            <ToggleList task={task} handleDelete={handleDelete} fetchTasks={fetchData} />
+                            <ToggleList key={task.id} task={task} handleDelete={handleDelete} fetchTasks={fetchData} />
                         ))}
                 </ul>
 

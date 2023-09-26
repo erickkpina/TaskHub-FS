@@ -1,12 +1,11 @@
 import React from 'react'
 
+import { ScheduleComponent } from '../components/ScheduleComponent'
 
 export const Schedule = () => {
     return (
         <main>
-            <div>
-                <h1 className='items-center justify-center text-center'>Schedule</h1>
-            </div>
+            <ScheduleComponent />
         </main>
     )
 }
