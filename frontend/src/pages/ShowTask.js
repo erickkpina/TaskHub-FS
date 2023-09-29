@@ -17,16 +17,13 @@ export const ShowTask = () => {
             const response = await axios.get('http://localhost:8000/todos/');
             const data = response.data;
 
-            // Ordenar a lista com base na string de data (formato dd/MM/yyyy)
             data.sort((a, b) => {
                 const dateA = a.start_date;
                 const dateB = b.start_date;
 
-                // Converter as strings de data em um formato que possa ser ordenado
                 const datePartsA = dateA.split('/').reverse().join('');
                 const datePartsB = dateB.split('/').reverse().join('');
 
-                // Compare as strings de data convertidas
                 if (datePartsA < datePartsB) {
                     return -1;
                 }
@@ -45,7 +42,7 @@ export const ShowTask = () => {
     useEffect(() => {
 
         fetchData();
-    }, []); // O segundo argumento [] garante que isso só seja executado uma vez após a montagem
+    }, []);
 
     const handleDelete = async (id) => {
         try {
