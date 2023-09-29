@@ -78,7 +78,7 @@ export const ScheduleComponent = () => {
     return (
         <div>
             <div className='flex flex-row justify-center items-center'>
-                <div className='py-1'>
+                <div className='py-3'>
                     <span className="bg-yellow-400 text-gray-600 px-3 mx-2 rounded-full" />
                     <span className="text-sm text-black dark:text-white">- To do</span>
                 </div>
@@ -95,7 +95,7 @@ export const ScheduleComponent = () => {
                     startAccessor="start"
                     endAccessor="end"
                     tooltipAccessor="description"
-                    style={{ height: 500, margin: "50px" }}
+                    style={{ height: 750, marginTop: "20px", marginBottom: "40px" }}
                     eventPropGetter={eventPropGetter}
                     onSelectEvent={handleSelectEvent}
                     className="text-black bg-white border border-black focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:border-gray-600"
